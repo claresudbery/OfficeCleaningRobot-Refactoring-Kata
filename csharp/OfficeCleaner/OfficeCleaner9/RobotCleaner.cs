@@ -101,105 +101,125 @@ namespace OfficeCleaner9
             switch (direction)
             {
                 case 'N':
-                    for (int i = 0; i < steps; i++)
-                    {
-                        //if robot is at the boundary of the floor it just stops there and wait for next direction 
-                        if (CURRENT_Y + 1 > FLOOR_UPPER_LENGTH)
-                        {
-                            CURRENT_Y = FLOOR_UPPER_LENGTH;
-                            break;
-                        }
-                        else
-                        {
-                            //if place is not visited
-                            if (!visitedPlaces.ContainsKey(string.Format("{0} {1}", CURRENT_X, CURRENT_Y + 1)))
-                            {
-                                //Visit it and add to the visited places
-                                visitedPlaces.Add(string.Format("{0} {1}", CURRENT_X, CURRENT_Y + 1), new Coordinates(CURRENT_X, ++CURRENT_Y));
-                            }
-                            else
-                            {
-                                //otherwise moves to the next location
-                                ++CURRENT_Y;
-                            }
-                        }
-                    }
+                    MoveNorth(steps);
                     break;
                 case 'S':
-                    for (int i = 0; i < steps; i++)
-                    {
-                        //if robot is at the boundary of the floor it just stops there and wait for next direction 
-                        if (CURRENT_Y - 1 < FLOOR_LOWER_LENGTH)
-                        {
-                            CURRENT_Y = FLOOR_LOWER_LENGTH;
-                            break;
-                        }
-                        else
-                        {
-                            //if place is not visited
-                            if (!visitedPlaces.ContainsKey(string.Format("{0} {1}", CURRENT_X, CURRENT_Y - 1)))
-                            {
-                                //Visit it and add to the visited places
-                                visitedPlaces.Add(string.Format("{0} {1}", CURRENT_X, CURRENT_Y - 1), new Coordinates(CURRENT_X, --CURRENT_Y));
-                            }
-                            else
-                            {
-                                //otherwise moves to the next location
-                                --CURRENT_Y;
-                            }
-                        }
-                    }
+                    MoveSouth(steps);
                     break;
                 case 'E':
-                    for (int i = 0; i < steps; i++)
-                    {
-                        //if robot is at the boundary of the floor it just stops there and wait for next direction 
-                        if (CURRENT_X - 1 < FLOOR_LOWER_WIDTH)
-                        {
-                            CURRENT_X = FLOOR_LOWER_WIDTH;
-                            break;
-                        }
-                        else
-                        {
-                            //if place is not visited
-                            if (!visitedPlaces.ContainsKey(string.Format("{0} {1}", CURRENT_X - 1, CURRENT_Y)))
-                            {
-                                //Visit it and add to the visited places
-                                visitedPlaces.Add(string.Format("{0} {1}", CURRENT_X - 1, CURRENT_Y), new Coordinates(--CURRENT_X, CURRENT_Y));
-                            }
-                            else
-                            {
-                                //otherwise moves to the next location
-                                --CURRENT_X;
-                            }
-                        }
-                    }
+                    MoveEast(steps);
                     break;
                 case 'W':
-                    for (int i = 0; i < steps; i++)
-                    {
-                        //if robot is at the boundary of the floor it just stops there and wait for next direction 
-                        if (CURRENT_X + 1 > FLOOR_UPPER_WIDTH)
-                        {
-                            CURRENT_X = FLOOR_UPPER_WIDTH;
-                            break;
-                        }
-                        else
-                        {
-                            //if place is not visited
-                            if (!visitedPlaces.ContainsKey(string.Format("{0} {1}", CURRENT_X + 1, CURRENT_Y)))
-                            {
-                                //Visit it and add to the visited places
-                                visitedPlaces.Add(string.Format("{0} {1}", CURRENT_X + 1, CURRENT_Y), new Coordinates(++CURRENT_X, CURRENT_Y));
-                            }
-                            else
-                            {
-                                //otherwise moves to the next location
-                                ++CURRENT_X;
-                            }
-                        }
-                    }
+                    MoveWest(steps);
                     break;
+            }
+        }
+
+        private void MoveWest(int steps)
+        {
+            for (int i = 0; i < steps; i++)
+            {
+                //if robot is at the boundary of the floor it just stops there and wait for next direction 
+                if (CURRENT_X + 1 > FLOOR_UPPER_WIDTH)
+                {
+                    CURRENT_X = FLOOR_UPPER_WIDTH;
+                    break;
+                }
+                else
+                {
+                    //if place is not visited
+                    if (!visitedPlaces.ContainsKey(string.Format("{0} {1}", CURRENT_X + 1, CURRENT_Y)))
+                    {
+                        //Visit it and add to the visited places
+                        visitedPlaces.Add(string.Format("{0} {1}", CURRENT_X + 1, CURRENT_Y), new Coordinates(++CURRENT_X, CURRENT_Y));
+                    }
+                    else
+                    {
+                        //otherwise moves to the next location
+                        ++CURRENT_X;
+                    }
+                }
+            }
+        }
+
+        private void MoveEast(int steps)
+        {
+            for (int i = 0; i < steps; i++)
+            {
+                //if robot is at the boundary of the floor it just stops there and wait for next direction 
+                if (CURRENT_X - 1 < FLOOR_LOWER_WIDTH)
+                {
+                    CURRENT_X = FLOOR_LOWER_WIDTH;
+                    break;
+                }
+                else
+                {
+                    //if place is not visited
+                    if (!visitedPlaces.ContainsKey(string.Format("{0} {1}", CURRENT_X - 1, CURRENT_Y)))
+                    {
+                        //Visit it and add to the visited places
+                        visitedPlaces.Add(string.Format("{0} {1}", CURRENT_X - 1, CURRENT_Y), new Coordinates(--CURRENT_X, CURRENT_Y));
+                    }
+                    else
+                    {
+                        //otherwise moves to the next location
+                        --CURRENT_X;
+                    }
+                }
+            }
+        }
+
+        private void MoveSouth(int steps)
+        {
+            for (int i = 0; i < steps; i++)
+            {
+                //if robot is at the boundary of the floor it just stops there and wait for next direction 
+                if (CURRENT_Y - 1 < FLOOR_LOWER_LENGTH)
+                {
+                    CURRENT_Y = FLOOR_LOWER_LENGTH;
+                    break;
+                }
+                else
+                {
+                    //if place is not visited
+                    if (!visitedPlaces.ContainsKey(string.Format("{0} {1}", CURRENT_X, CURRENT_Y - 1)))
+                    {
+                        //Visit it and add to the visited places
+                        visitedPlaces.Add(string.Format("{0} {1}", CURRENT_X, CURRENT_Y - 1), new Coordinates(CURRENT_X, --CURRENT_Y));
+                    }
+                    else
+                    {
+                        //otherwise moves to the next location
+                        --CURRENT_Y;
+                    }
+                }
+            }
+        }
+
+        private void MoveNorth(int steps)
+        {
+            for (int i = 0; i < steps; i++)
+            {
+                //if robot is at the boundary of the floor it just stops there and wait for next direction 
+                if (CURRENT_Y + 1 > FLOOR_UPPER_LENGTH)
+                {
+                    CURRENT_Y = FLOOR_UPPER_LENGTH;
+                    break;
+                }
+                else
+                {
+                    //if place is not visited
+                    if (!visitedPlaces.ContainsKey(string.Format("{0} {1}", CURRENT_X, CURRENT_Y + 1)))
+                    {
+                        //Visit it and add to the visited places
+                        visitedPlaces.Add(string.Format("{0} {1}", CURRENT_X, CURRENT_Y + 1), new Coordinates(CURRENT_X, ++CURRENT_Y));
+                    }
+                    else
+                    {
+                        //otherwise moves to the next location
+                        ++CURRENT_Y;
+                    }
+                }
             }
         }
 
