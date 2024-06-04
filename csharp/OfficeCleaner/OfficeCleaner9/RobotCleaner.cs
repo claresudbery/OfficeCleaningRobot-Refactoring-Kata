@@ -174,7 +174,8 @@ namespace OfficeCleaner9
             for (int i = 0; i < steps; i++)
             {
                 //if robot is at the boundary of the floor it just stops there and wait for next direction 
-                if (CURRENT_Y - 1 < FLOOR_LOWER_LENGTH)
+                var nextY = CURRENT_Y -1;
+                if (nextY < FLOOR_LOWER_LENGTH)
                 {
                     CURRENT_Y = FLOOR_LOWER_LENGTH;
                     break;
@@ -182,15 +183,15 @@ namespace OfficeCleaner9
                 else
                 {
                     //if place is not visited
-                    if (!visitedPlaces.ContainsKey(string.Format("{0} {1}", CURRENT_X, CURRENT_Y - 1)))
+                    if (!visitedPlaces.ContainsKey(string.Format("{0} {1}", CURRENT_X, nextY)))
                     {
                         //Visit it and add to the visited places
-                        visitedPlaces.Add(string.Format("{0} {1}", CURRENT_X, CURRENT_Y - 1), new Coordinates(CURRENT_X, --CURRENT_Y));
+                        visitedPlaces.Add(string.Format("{0} {1}", CURRENT_X, nextY), new Coordinates(CURRENT_X, --CURRENT_Y));
                     }
                     else
                     {
                         //otherwise moves to the next location
-                        --CURRENT_Y;
+                        CURRENT_Y = nextY ;
                     }
                 }
             }
@@ -201,7 +202,8 @@ namespace OfficeCleaner9
             for (int i = 0; i < steps; i++)
             {
                 //if robot is at the boundary of the floor it just stops there and wait for next direction 
-                if (CURRENT_Y + 1 > FLOOR_UPPER_LENGTH)
+                var nextY = CURRENT_Y + 1;
+                if (nextY > FLOOR_UPPER_LENGTH)
                 {
                     CURRENT_Y = FLOOR_UPPER_LENGTH;
                     break;
@@ -209,15 +211,15 @@ namespace OfficeCleaner9
                 else
                 {
                     //if place is not visited
-                    if (!visitedPlaces.ContainsKey(string.Format("{0} {1}", CURRENT_X, CURRENT_Y + 1)))
+                    if (!visitedPlaces.ContainsKey(string.Format("{0} {1}", CURRENT_X, nextY)))
                     {
                         //Visit it and add to the visited places
-                        visitedPlaces.Add(string.Format("{0} {1}", CURRENT_X, CURRENT_Y + 1), new Coordinates(CURRENT_X, ++CURRENT_Y));
+                        visitedPlaces.Add(string.Format("{0} {1}", CURRENT_X, nextY), new Coordinates(CURRENT_X, ++CURRENT_Y));
                     }
                     else
                     {
                         //otherwise moves to the next location
-                        ++CURRENT_Y;
+                        CURRENT_Y = nextY;
                     }
                 }
             }
